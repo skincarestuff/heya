@@ -34,7 +34,12 @@ import macros
       product.is (a dictionary which contains keys corresponding to each characteristic
         the imported product information contains 
         (i.e. product.is[("vegan", true), ("parabenfree", false)])
-      product.score (float, will be altered by the algorithm)
+      product.ingrscore (float, initialized to 0.)
+      product.valuescore (float, initialized to 0.)
+      product.economyscore (float, initialized to 0.)
+      product.splurgescore (float, initialized to 0.)
+      product.hasbad (bool, tracks whether product contains ingredient which might 
+        aggravate skin conditions)
 """
 
 
@@ -87,8 +92,8 @@ dealing with diagnosed conditions:
   -initialize two lists, "goodingrs" and "badingrs"
   -iterate through client.conds.  for each condition the client has:
     -union goodingrs with with condition.good
-    -union badingrss with condition.bad
-  -remove any elements in both goodchems and badchems from goodchems 
+    -union badingrs with condition.bad
+  -remove any elements in both goodingrs and badingrs from goodingrs 
 
 dealing with sliders:
   -initialize "slideingrs" dictionary (will eventually associate ingredient names to a float)
@@ -120,9 +125,78 @@ relevant resources available:
   -goodingrs
   -badingrs
   -slideingrs
+
+setup:
+-initialize a list for each product type the client is interested in
+-for each product in products:
+  if product.type is among the product types the client is interested in:
+    add product to appropriate list
+  initialize 4 variables for each list
+    list_pricelow == product.price of first product in the list
+    list_pricehigh == product.price of first product in the list
+    list_unitpricelow == product.unitprice of first product in the list
+    list_unitpricehigh == product.unitprice of first product in the list
+
+to calculate ingredient score:
+-for each list of the product type lists
+  for each product in list:
+    set product.hasbad to false
+  -----------------------
+      (next steps are for pricing scores)
+      replace list_pricelow with min(list_pricelow, product.price)
+      replace list_pricehigh with max(list_pricehigh, product.price)
+      replace list_unitpricelow with min(list_unitpricelow, product.unitprice)
+      replace list_unitpricehigh with max(list_unitpricehigh, product.unitprice)
+  -----------------------
+    initialize condgoodscore, condbadscore, and slidescore to 0
+    for each ingredient in product.ingredients:
+      -if ingredient is in goodingrs, add 1 to condgoodscore
+       else if ingredient is in badingrs, add 1 to condbadscore
+         and set product.hasbad to true
+      -if ingredient is in slideingrs, add slideingrs[ingredient] to slidescore
+    linear equation to calculate product.ingrscore is as follows:
+    product.ingrscore == product.condgoodscore 
+                     - macros.BADWEIGHT*product.condbadscore 
+                     + macros.SLIDEWEIGHT*product.slidescore
+
+to calculate pricing scores:
+-for each list of the product type lists
+  initialize pricediff to be list_pricehigh - list_pricelow
+  initialize unitpricediff to be list_unitpricehigh - list_unitpricelow
+  for each product in list:
+    product.splurgescore = (product.price - list_pricelow) / pricediff
+    product.economyscore = 1 - product.splurgescore
+    product.valuescore = 1 - (product.unitprice - list_unitpricelow) / unitpricediff
+ 
 """
 # producing recommendations
 """
 relevant resources available:
-  -products
+  -lists of products by product type
+    containing:
+    -product.ingrscore (score of how good the ingredients are for the client)
+    -product.economyscore (score of how inexpensive the product is relative to 
+      other products of the same product type)
+    -product.valuescore (score of how good the unit price of the product is relative 
+      to other products of the same product type)
+    -product.splurgescore (score of how expensive the product is relative to other 
+      products of the same type)
+    -product.hasbad (whether or not the product contains ingredients which could 
+      aggravate one of the client's diagnosed skin conditions)
+
+to calculate recommendations for each product type the client is interested in:
+  for each product type list:
+    for each product in list:
+      product.economyscore == product.economyscore * macros.PRICEWEIGHT 
+                              + product.ingrscore * macros.INGRWEIGHT
+      product.valuescore == product.valuescore * macros.PRICEWEIGHT 
+                              + product.ingrscore * macros.INGRWEIGHT
+      product.splurgescore == product.splurgescore * macros.PRICEWEIGHT 
+                              + product.ingrscore * macros.INGRWEIGHT
+    for economical option:
+      recommend product in list with maximal product.economyscore
+    for value option:
+      recommend product in list with maximal product.valuescore
+    for splurge option:
+      recommend product in list with maximal product.splurgescore
 """

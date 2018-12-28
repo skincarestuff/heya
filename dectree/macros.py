@@ -13,6 +13,18 @@
 #  condition information. 
 SLIDERWEIGHT == .1
 
+# BADWEIGHT is multiplied by the number of potentially malicious
+#  ingredients a product contains; it is the relative strength of 
+#  the weighting of a product's bad ingredients to it's good ingredients
+BADWEIGHT == 5.
+
+# INGRWEIGHT is multiplied by the overall ingredient score of the product 
+#  in the final recommendation scoring, while PRICEWEIGHT is multiplied 
+#  by the product's pricing scores; INGRWEIGHT/PRICEWEIGHT is the relative 
+#  strength of a products ingredient score to it's price score.
+INGRWEIGHT = 1.5
+PRICEWEIGHT = 1.
+
 
 
 
