@@ -1,0 +1,8 @@
+dryoily: -*oleic acid, -*marula oil, -*avocado oil, -*seabuckthorn oil, -*shea butter, -*shea oil, -*macademia nut oil, -*camellia seed oil, -*hazelnut oil, -*sweet almond oil
+sensitivity: -hydrators, -moisturizers, irritants, stripping
+smoothness: -chemexfoliant, -*lactic acid, -moisturizers, -hydrators, blerp
+tightness:
+acne: comedogenes, stripping, -chemexfoliants, -*salicylic acid, blerp
+blackheads: -chemexfoliants, -*salicylic acid
+finelines: blerp
+hyperpigmentation: -chemexfoliants, /sunscreen

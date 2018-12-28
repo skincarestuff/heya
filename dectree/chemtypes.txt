@@ -1,0 +1,15 @@
+irritants: essential oil, fragrance, scrub, bead, nut shell
+stripping: alcohol, alcohol denat, sodium lauryl sulfate, sodium laureth sulfate
+humectants: hyaluronic acid, butylene glycol, glycerin, sorbitol, sodium PCA, sodium lactate, sodium hyaluronate
+hydrators:
+moisturizers: 
+occlusives: petroleum jelly, mineral oil, silicone, shea butter, jojoba oil, oleic acid, beeswax, lanolin, marula oil, avocado oil, seabuckthorn oil, shea oil, macademia nut oil, camellia seed oil, hazelnut oil, sweet almond oil
+comedogenes: cocoa butter, coconut oil
+chemexfoliants: glycolic acid, lactic acid, salicylic acid
+physexfoliants: microbeads
+detergents: cocoyl isethionate
+antifungals: ketoconazole, climbazole, zinc pyrithione, cidoprox olamine, butenafine, hydrochloride
+antiinflammatory: oat milk, blue tansy, hemp seed oil
+fattyalcohols: 
+heavyoils: wax, balm, solidifier, mineral oil, silicone
+scarfaders: rosehip oil, vitamin c, _chemexfoliants, _physexfoliants
