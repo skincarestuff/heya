@@ -1,3 +1,0 @@
-# skincare
-# heya
-# heya
